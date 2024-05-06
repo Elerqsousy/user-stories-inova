@@ -1,0 +1,18 @@
+<%= stylesheet_link_tag('index') %>
+<div class="post-details">
+  <span>
+    <h1> <%= @post.title %> by <%= @user.name %> </h1>
+    <p>
+      <%= link_to 'Comment on this post', new_user_post_comment_path(user_id: current_user.id, post_id: @post.id) %>
+    </p>
+    <span>Comments: <%= @post.comments.count %> rates: <%= @post.rates_counter %> </span>
+  </span>
+  <p> <%= @post.text %>
+    <%= form_with model: @rate, url:user_post_rates_path(post_id: @post.id) do |f| %>
+      <%= f.submit  "rate", class: ["new-post-btn submit-btn"]%>
+    <% end %>
+    <% if can? :manage, @post %>
+  <%= button_to "Delete Post", user_post_url(@post.id), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: ["new-post-btn submit-btn delete-btn"]%>
+  <%end%>
+  <%= render 'shared/comment', comments: @comments %>
+</div>

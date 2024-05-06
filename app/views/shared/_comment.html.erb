@@ -1,0 +1,11 @@
+ <div>
+  <% comments.includes(:user).each do |comment|%>
+   <div class="comment">
+     <h4><%= comment.user.name %></h4>
+     <p><%= comment.text %></p>
+    <% if can? :manage, comment %>
+      <%= button_to "Delete Comment", user_post_comment_path(comment.user_id, comment.post_id, comment.id), method: :delete%>
+    <%end%>
+   </div>
+  <% end %>
+</div>

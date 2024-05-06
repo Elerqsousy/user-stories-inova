@@ -1,0 +1,17 @@
+<%= render 'shared/user', user:@user %>
+
+<div class="post-container">
+  <div class="post-heading">
+    <h2>About me</h2>
+    <p><%= @user.bio %></p>
+  </div>
+  <% @posts.each do |post| %>
+    <div class="post-title">
+      <h4>Post</h4>
+      <h3> <%= link_to post.title, user_post_url(@user, post) %> </h3>
+      <%= render 'shared/post', post:post %>
+    </div>
+  <% end %>
+
+  <button> <%= link_to "See all posts", user_posts_path(@user) %></button>
+</div>
